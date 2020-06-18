@@ -49,8 +49,11 @@ public class AStar {
    static int test_=0;
    static int protection_=0;
    static int boucle=0;
+   static int ieop=0;
+   static int ieopp=0;
+   static int ieoppp=0;
+   static int ippp = 0;
    
-	
 
 
 public class t implements MqttCallback  {
@@ -171,113 +174,136 @@ public class t implements MqttCallback  {
 	   
 	
 		
-    	 tabeCub= new cube [31];
+    	 tabeCub= new cube [30];
     	 
-    	 String topic        = "t";
-         String content      = "tezfozsefrds";
-         int qos             = 1;
-         String broker       = "tcp://localhost:1883"/*"tcp://foundation.lyon.ece.licot.fr:2019"*/;
-  	        String clientId     = "lens_oHOSBuT4TDiIsRoJBOFb9oD6P9f";
-  	        String password     = "azerty";
-         MemoryPersistence persistence = new MemoryPersistence();
-
-    	    try {
-    	    	MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
-    	           
-                MqttConnectOptions connOpts = new MqttConnectOptions();
-                connOpts.setCleanSession(true);
-                connOpts.setUserName(clientId);
-                connOpts.setPassword(password.toCharArray());
-                System.out.println("Connecting to broker: "+broker);
-                sampleClient.connect(connOpts);
-                System.out.println("Connected");
-    	        sampleClient.setCallback(new MqttCallback() {
-    	            public void connectionLost(Throwable cause) {}
-
-    	            public void messageArrived(String topic,
-    	                    MqttMessage message)
-    	                            throws Exception {
-    	            	switch(topic)
-    	                {
-    	                    case "t":
-    	                    	tabeCub[10]= new cube();
-    	    	            	  tabeCub[10].valeur= Integer.parseInt(message.toString());
-    	    	     				tabeCub[10].x= 1;//récupération position
-    	    	      				tabeCub[10].y= 1;//récupération position
-    	                    break;
-    	                   
-    	                    default:
-    	                    	tabeCub[10]= new cube();
-    	    	            	  tabeCub[10].valeur= 100;
-    	    	     				tabeCub[10].x= 2;//récupération position
-    	    	      				tabeCub[10].y= 2;//récupération position
-    	                    break;
-    	                }
-    	              if (message.toString()=="t")
-    	              {
-    	            	  tabeCub[10]= new cube();
-    	            	  tabeCub[10].valeur= 3;
-    	     				tabeCub[10].x= 1;//récupération position
-    	      				tabeCub[10].y= 1;//récupération position
-    	              }
-    	              
-    	            }
-
-    	            public void deliveryComplete(IMqttDeliveryToken token) {}
-    	        });
-
-    	        sampleClient.subscribe(topic);
-    	        System.out.println("Fin de reception des messages");
-    	        sampleClient.disconnect(); // Deconnexion du serveur MQTT
-                System.out.println("Deconnexion subscriber");
-
-    	    } catch (MqttException e) {
-    	       e.printStackTrace();
-    	       
-    	    }
-    	 for (int i = 0; i < tabeCub.length; i++) {
+    	
+    	
+    	 for (ippp = 0; ippp < tabeCub.length; ippp++) {
     		 
     		 
-    		 	if(i!=10)
-    			 tabeCub[i]= new cube();
- 				//tabeCub[i].valeur= 3;
-    			
+    		 
+    			/* tabeCub[ippp]= new cube();
+    			 ieop=0;
+    			 ieopp=0;
+    			 ieoppp=0;
+    			 String topic        = "c3-green/type";
+    			 String topic2        = "c3-green/x";
+    			 String topic3        = "c3-green/y";
     			 
-    				    	  
-    				           
+    	         String content      = "tezfozsefrds";
+    	         int qos             = 1;
+    	         
+    	       
+    	         String broker       = "tcp://foundation.lyon.ece.licot.fr:2019";
+    	  	        String clientId     = "B9V9UJO930T85F6";
+    	  	        String password     = "E5RvTzzxm5KK4013Fj5q";
+    	         MemoryPersistence persistence = new MemoryPersistence();
+
+    	    	    try {
+    	    	    	MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
+    	    	           
+    	                MqttConnectOptions connOpts = new MqttConnectOptions();
+    	                connOpts.setCleanSession(true);
+    	                connOpts.setUserName(clientId);
+    	                connOpts.setPassword(password.toCharArray());
+    	                System.out.println("Connecting to broker: "+broker);
+    	                sampleClient.connect(connOpts);
+    	                System.out.println("Connected");
+    	                
+    	                
+    	    	        sampleClient.setCallback(new MqttCallback() {
+    	    	            public void connectionLost(Throwable cause) {}
+
+    	    	            public void messageArrived(String topic,
+    	    	                    MqttMessage message)
+    	    	                            throws Exception {
+    	    	            	switch(topic)
+    	    	                {
+    	    	                    case "c3-green/type":
+    	    	                    	System.out.println("VALEUR");
+    	    	                    	
+    	    	    	            	  tabeCub[ippp].valeur= Integer.parseInt(message.toString());
+    	    	    	     				
+    	    	    	      				 ieop=1;
+    	    	                    break;
+    	    	                    case "c3-green/x":
+    	    	                    	System.out.println("X");
+    	    	                    	
+    	    	    	            
+    	    	    	     				tabeCub[ippp].x=Integer.parseInt(message.toString());//récupération position
+    	    	    	      				
+    	    	    	      				 ieopp=1;
+    	    	                    break;
+    	    	                    case "c3-green/y":
+    	    	                    	System.out.println("Y");
+    	    	                    	
+    	    	    	            
+    	    	    	     				tabeCub[ippp].y=Integer.parseInt(message.toString());//récupération position
+    	    	    	      				
+    	    	    	      				 ieoppp=1;
+    	    	                    break;
+    	    	                   
+    	    	                    default:
+    	    	                    	tabeCub[ippp]= new cube();
+    	    	    	            	  tabeCub[ippp].valeur= 100;
+    	    	    	     				tabeCub[ippp].x= 2;//récupération position
+    	    	    	      				tabeCub[ippp].y= 2;//récupération position
+    	    	                    break;
+    	    	                }
+    	    	              
+    	    	              
+    	    	            }
+
+    	    	            public void deliveryComplete(IMqttDeliveryToken token) {}
+    	    	        });
+    	    	       
+    	    	        while(ieop==0) {
+    	    	        sampleClient.subscribe(topic);
+    	    	        while(ieopp==0) {
+    	    	        sampleClient.subscribe(topic2);
+    	    	        while(ieoppp==0) {
+        	    	        sampleClient.subscribe(topic3);
+    	    	        }
+    	    	        }
+    	    	        
+    	    	        }
+    	    	        System.out.println("Fin de reception des messages");
+    	    	        sampleClient.disconnect(); // Deconnexion du serveur MQTT
+    	                System.out.println("Deconnexion subscriber");
+
+    	    	    } catch (MqttException e) {
+    	    	       e.printStackTrace();
+    	    	       
+    	    	    }
+    			*/
+    			 
+    			if(ippp!=2 && ippp!=3 )	 {   	  
+    		tabeCub[ippp]= new cube();
+       	  tabeCub[ippp].valeur= 100;
+				tabeCub[ippp].x= 9;//récupération position
+ 				tabeCub[ippp].y= 6;//récupération position  
     				               
+    			}
+    			else
+    			{
+    				 tabeCub[ippp]= new cube();
+    		       	  tabeCub[ippp].valeur= 3;
+    						tabeCub[ippp].x= 2;//récupération position
+    		 				tabeCub[ippp].y= 2;//récupération position  
+    			}
     				 
-    				 
+    			 if( ippp==3 )	 {   	  
+     	    		tabeCub[ippp]= new cube();
+     	       	  tabeCub[ippp].valeur= 100;
+     					tabeCub[ippp].x= 1;//récupération position
+     	 				tabeCub[ippp].y= 1;//récupération position  
+     	    				               
+     	    			}
     				  
     				 
     			 
-    			if(i==9) {
-        			tabeCub[i]= new cube();
-     				tabeCub[i].valeur= 3;
-     				tabeCub[i].x= 6;//récupération position
-      				tabeCub[i].y= 8;//récupération position
-        		 }
-        	 else if(i<8 ) { 
-    			 tabeCub[i]= new cube();
-  				tabeCub[i].valeur= 100;
-  				tabeCub[i].x= 6;//récupération position
-  				tabeCub[i].y= 7;//récupération position
-     		 }
-        		 else if(i>11 && i<31) { 
-        			 tabeCub[i]= new cube();
-      				tabeCub[i].valeur= 100;
-      				tabeCub[i].x= 6;//récupération position
-      				tabeCub[i].y= 7;//récupération position
-         		 }
-        		 
-        		/* else  { 
-        			 tabeCub[i]= new cube();
-      				tabeCub[i].valeur= 3;
-      				tabeCub[i].x= 5;//récupération position
-      				tabeCub[i].y= 5;//récupération position
-         		 }*/
+    			
     	 }
-    	 System.out.println(tabeCub[10].x);
     	 
     	 
     }
@@ -290,10 +316,10 @@ public static cube[] returncube() {
     
    private static  int[][] createTab(int [][]tab)
    {
-   	tab= new int [15][10];
+   	tab= new int [10][15];
    	//taille du plan
    	cube []tabCube;
-  	 tabCube= new cube [31];
+  	 tabCube= new cube [30];
   	
   	 tabCube=tabeCub;
    	
@@ -302,7 +328,7 @@ public static cube[] returncube() {
 			for(int p = 0; p < tab[l].length; p++) {
 
 				tab[l][p]= 0;
-				for(int k=0; k<31; k++) {
+				for(int k=0; k<3; k++) {
 				if(tabCube[k].x==p && tabCube[k].y==l)
 				{
 					tab[l][p]= tabCube[k].valeur;
@@ -445,11 +471,11 @@ public static cube[] returncube() {
    		    	 {
    		    		 for(int i=0; i<11;i++)
    		    		 { 
-   		    			 if(-parcours==tabeCub[i].x && parcourschangeant==tabeCub[i].y && success==0 && 3==tabeCub[i].valeur && maze[-parcours][parcourschangeant]!=100)
+   		    			 if((-parcours+10)==tabeCub[i].x && (8+parcourschangeant)==tabeCub[i].y && success==0 && 3==tabeCub[i].valeur && maze[-parcours+10][parcourschangeant+8]!=100)
    		    			 {
    		    				
-   		    				 succes.x=-parcours;
-   		    				 succes.y=parcourschangeant;
+   		    				 succes.x=10-parcours;
+   		    				 succes.y=8+parcourschangeant;
    		    				 tabeCub[i].valeur=0;
    		    				 
    		       				success=2;
@@ -479,11 +505,11 @@ public static cube[] returncube() {
    		    	 {
    		    		 for(int i=0; i<11;i++)
    		    		 {
-   		    			 if(-parcours==tabeCub[i].y && parcourschangeant==tabeCub[i].x  && success==0 && 3==tabeCub[i].valeur)
+   		    			 if(8-parcours==tabeCub[i].y && 10+parcourschangeant==tabeCub[i].x  && success==0 && 3==tabeCub[i].valeur)
    		    			 {
    		    				
-   		    				 succes.x=parcourschangeant;
-   		    				 succes.y=-parcours;
+   		    				 succes.x=10+parcourschangeant;
+   		    				 succes.y=8-parcours;
    		    				 tabeCub[i].valeur=0;
    		    				 
    		       				success=2;
@@ -513,11 +539,11 @@ public static cube[] returncube() {
    		    	 {
    		    		 for(int i=0; i<11;i++)
    		    		 {
-   		    			 if(parcours==tabeCub[i].x && parcourschangeant==tabeCub[i].y  && success==0 && 3==tabeCub[i].valeur)
+   		    			 if(parcours+10==tabeCub[i].x && 8+parcourschangeant==tabeCub[i].y  && success==0 && 3==tabeCub[i].valeur)
    		    			 {
    		    				
-   		    				 succes.x=parcours;
-   		    				 succes.y=parcourschangeant;
+   		    				 succes.x=10+parcours;
+   		    				 succes.y=8+parcourschangeant;
    		    				 tabeCub[i].valeur=0;
    		    				 
    		       				success=2;
@@ -548,11 +574,11 @@ public static cube[] returncube() {
    		    		 for(int i=0; i<11;i++)
    		    		 {
 
-   		    			 if(parcours==tabeCub[i].y && parcourschangeant==tabeCub[i].x && success==0 && 3==tabeCub[i].valeur)
+   		    			 if(8+parcours==tabeCub[i].y && 10+parcourschangeant==tabeCub[i].x && success==0 && 3==tabeCub[i].valeur)
    		    			 {
    		    				
-   		    				 succes.x=parcourschangeant;
-   		    				 succes.y=parcours;
+   		    				 succes.x=10+parcourschangeant;
+   		    				 succes.y=8+parcours;
    		    				 tabeCub[i].valeur=0;
    		    				 
    		       				success=2;
@@ -583,11 +609,11 @@ public static cube[] returncube() {
    		    	 {
    		    		 for(int i=0; i<11;i++)
    		    		 {
-   		    			 if(parcours==tabeCub[i].x &&parcours==tabeCub[i].x  && success==0 && 3==tabeCub[i].valeur)
+   		    			 if(10+parcours==tabeCub[i].x && 8+parcours==tabeCub[i].x  && success==0 && 3==tabeCub[i].valeur)
    		    			 {
    		    				
-   		    				 succes.x=parcours;
-   		    				 succes.y=parcourschangeant;
+   		    				 succes.x=10+parcours;
+   		    				 succes.y=8+parcourschangeant;
    		    				 tabeCub[i].valeur=0;
    		    				 
    		       				success=2;
@@ -618,7 +644,7 @@ public static cube[] returncube() {
    		      
    		        
    		        //Put start
-   		        AStar as = new AStar(maze, 0, 0, true);
+   		        AStar as = new AStar(maze, 11, 8, true);
    		        //put end
    		        List<Node> path = as.findPathTo(succes.x, succes.y);
    		        if (path != null) {

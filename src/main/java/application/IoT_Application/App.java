@@ -24,7 +24,7 @@ import application.IoT_Application.AStar.tabPositionMouvement;
 
 /**
  *
- * @author 
+ * @author loic Chaligne
  */
 public class App {
 	
@@ -32,11 +32,11 @@ public class App {
 	
     public static void main(String[] args) throws MqttException {
  
-    	//AStar a= new AStar(null, 0, 0, false);
-    	//a.ok(args);
+    	AStar a= new AStar(null, 0, 0, false);
+    	a.ok(args);
     	
       // PublishClient publieur = new PublishClient();
-       SubClient subscriber = new SubClient();
+      // SubClient subscriber = new SubClient();
     	
     	
     	
