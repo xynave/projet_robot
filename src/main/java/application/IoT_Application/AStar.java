@@ -56,73 +56,7 @@ public class AStar {
    
 
 
-public class t implements MqttCallback  {
- 
-	MqttClient client; // Creation de l'objet client
-    MqttConnectOptions connOpt; // Creation de l'objet connOpt
- 
- 
-    public t() throws MqttException{
-    	 /*String broker = "tcp://foundation.lyon.ece.licot.fr:2019"; // Adresse du serveur MQTT Je ne sais pas si je peux la mettre ici sur le forum, ca ne craint pas ?
-    	    String clientId = "B9V9UJO930T85F6"; // Nom du clientID
-    	    String topic1f = "c3-green/start-of-the-game"; // Topic simulateur
-    	    int QoSserveur = 1;
-    	    String password="E5RvTzzxm5KK4013Fj5q";
-    	    */
-    	 String topic1f = "test"; // Topic simulateur
- 	    int QoSserveur = 2;
- 	    String broker       = "tcp://localhost:1883"/*"tcp://foundation.lyon.ece.licot.fr:2019"*/;
- 	    	      String clientId     = "lens_oHOSBuT4TDiIsRoJBOFb9oD6P9f";
-	        String password     = "azerty";
-    	    Scanner sc = new Scanner(System.in);
-    	    int i =0;
-    try{
- 
-    	
-    	 MqttClient client = new MqttClient(broker,clientId);
-         client.setCallback(this);
-         
-    MqttConnectOptions mqOptions=new MqttConnectOptions();
-    mqOptions.setUserName(clientId);
-    mqOptions.setPassword(password.toCharArray());
-         mqOptions.setCleanSession(true);
-         client.connect(mqOptions);      //connecting to broker 
-         
-            client.subscribe(topic1f); //subscribing to the topic name  test/topic
-           while(i!=9) {
-        	   i= sc.nextInt();
-           	
-               System.out.println("Fin de reception des messages");
-               client.disconnect(); // Deconnexion du serveur MQTT
-               System.out.println("Deconnexion subscriber");
-           }
-           
-                }catch(MqttException e){
-                e.printStackTrace();
-            }
- 
-    }
- 
- 
-  
-    public void connectionLost(Throwable thrwbl) {
-    System.out.println("Connexion perdue");
-    }
- 
-   
-    public void messageArrived(String topic, MqttMessage message) throws Exception {
-        System.out.println("message is : "+message);
-        
-    	
-		
-       
-    }
- 
-  
-    public void deliveryComplete(IMqttDeliveryToken imdt) {
-        System.out.println("Message arrive");
-    }
-}
+
 
  
     // Node class for convienience
@@ -182,7 +116,7 @@ public class t implements MqttCallback  {
     		 
     		 
     		 
-    			/* tabeCub[ippp]= new cube();
+    			 tabeCub[ippp]= new cube();
     			 ieop=0;
     			 ieopp=0;
     			 ieoppp=0;
@@ -223,23 +157,23 @@ public class t implements MqttCallback  {
     	    	                    	System.out.println("VALEUR");
     	    	                    	
     	    	    	            	  tabeCub[ippp].valeur= Integer.parseInt(message.toString());
-    	    	    	     				
+    	    	    	            	 
     	    	    	      				 ieop=1;
     	    	                    break;
     	    	                    case "c3-green/x":
     	    	                    	System.out.println("X");
     	    	                    	
     	    	    	            
-    	    	    	     				tabeCub[ippp].x=Integer.parseInt(message.toString());//récupération position
-    	    	    	      				
+    	    	    	     				tabeCub[ippp].x=Integer.parseInt(message.toString())/20;//récupération position
+    	    	    	     				System.out.println(Integer.parseInt(message.toString())/20);
     	    	    	      				 ieopp=1;
     	    	                    break;
     	    	                    case "c3-green/y":
     	    	                    	System.out.println("Y");
     	    	                    	
     	    	    	            
-    	    	    	     				tabeCub[ippp].y=Integer.parseInt(message.toString());//récupération position
-    	    	    	      				
+    	    	    	     				tabeCub[ippp].y=Integer.parseInt(message.toString())/20;//récupération position
+    	    	    	     				System.out.println(Integer.parseInt(message.toString())/20);
     	    	    	      				 ieoppp=1;
     	    	                    break;
     	    	                   
@@ -275,7 +209,7 @@ public class t implements MqttCallback  {
     	    	       e.printStackTrace();
     	    	       
     	    	    }
-    			*/
+    			/*
     			 
     			if(ippp!=2 && ippp!=3 )	 {   	  
     		tabeCub[ippp]= new cube();
@@ -299,14 +233,14 @@ public class t implements MqttCallback  {
      	 				tabeCub[ippp].y= 1;//récupération position  
      	    				               
      	    			}
-    				  
+    				  */
     				 
     			 
     			
     	 }
     	 
     	 
-    }
+  }
   
 public static cube[] returncube() {
 	   return tabeCub;
@@ -328,7 +262,7 @@ public static cube[] returncube() {
 			for(int p = 0; p < tab[l].length; p++) {
 
 				tab[l][p]= 0;
-				for(int k=0; k<3; k++) {
+				for(int k=0; k<30; k++) {
 				if(tabCube[k].x==p && tabCube[k].y==l)
 				{
 					tab[l][p]= tabCube[k].valeur;
